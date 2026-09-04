@@ -234,11 +234,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 </div>
 
 <div id="tabs">
-  <div class="tab active" onclick="showTab('scan')">SCAN</div>
-  <div class="tab" onclick="showTab('log')">LOG</div>
-  <div class="tab" onclick="showTab('board')">BOARD</div>
-  <div class="tab" onclick="showTab('dash')">DASHBOARD</div>
-  <div class="tab" onclick="showTab('guide')">GUIDE</div>
+  <div class="tab active" data-tab="scan" onclick="showTab('scan')">SCAN</div>
+  <div class="tab" data-tab="log" onclick="showTab('log')">LOG</div>
+  <div class="tab" data-tab="board" onclick="showTab('board')">BOARD</div>
+  <div class="tab" data-tab="dash" onclick="showTab('dash')">DASHBOARD</div>
+  <div class="tab" data-tab="guide" onclick="showTab('guide')">GUIDE</div>
 </div>
 
 <!-- SCAN PAGE -->
@@ -679,7 +679,7 @@ function showTab(tab) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + tab).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t => { if (t.textContent.toLowerCase() === tab) t.classList.add('active'); });
+  document.querySelectorAll('.tab').forEach(t => { if (t.dataset.tab === tab) t.classList.add('active'); });
   if (tab === 'log')   renderLog();
   if (tab === 'board') updateBoard();
   if (tab === 'dash')  updateDash();
@@ -824,14 +824,14 @@ function useBuiltinData() {
       const s = SEED[idx++ % SEED.length];
       scanLog.push({si:`S-${m}-D${i}`, ic:s.ic, desc:s.desc, pg:s.pg,
         variety:s.variety, segment:getSegment(s.ic), uprc:'UPRC001', machine:m,
-        shift:'day', date:new Date().toISOString().slice(0,10),
+        shift:'day', date:localDateStr(new Date()),
         time:`${pad(8+Math.floor(i*1.5))}:${pad((mi*7+i*3)%60)}:00`, status:'ok', flagged:false});
     }
     for (let i = 0; i < 5; i++) {
       const s = SEED[idx++ % SEED.length];
       scanLog.push({si:`S-${m}-N${i}`, ic:s.ic, desc:s.desc, pg:s.pg,
         variety:s.variety, segment:getSegment(s.ic), uprc:'UPRC001', machine:m,
-        shift:'night', date:new Date().toISOString().slice(0,10),
+        shift:'night', date:localDateStr(new Date()),
         time:`${pad(20+Math.floor(i*1.5))}:${pad((mi*5+i*4)%60)}:00`, status:'ok', flagged:false});
     }
   });
@@ -943,7 +943,7 @@ function processScan(siNo) {
   }
 
   // ── MATCH FOUND — show for confirmation, NOT yet saved ──
-  pendingEntry = { si:siNo, ic:ref.ic, desc:ref.desc, pg:ref.pg, variety:ref.variety||'Unknown', segment:getSegment(ref.ic), uprc:ref.uprc, machine:currentMachine, shift:getCurrentShift(), date:new Date().toISOString().slice(0,10), time:nowStr(), status:'ok' };
+  pendingEntry = { si:siNo, ic:ref.ic, desc:ref.desc, pg:ref.pg, variety:ref.variety||'Unknown', segment:getSegment(ref.ic), uprc:ref.uprc, machine:currentMachine, shift:getCurrentShift(), date:localDateStr(new Date()), time:nowStr(), status:'ok' };
 
   card.className = 'result-card pending';
   card.innerHTML = `
@@ -1526,7 +1526,7 @@ function exportExcel() {
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(brandRows),   'Brand-Wise');
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(machineRows), 'Machine-Wise');
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(varietyRows), 'Variety-Wise');
-  const ds = fromVal&&toVal ? `${fromVal}_${toVal}` : new Date().toISOString().slice(0,10);
+  const ds = fromVal&&toVal ? `${fromVal}_${toVal}` : localDateStr(new Date());
   XLSX.writeFile(wb, `TapeEdge_${ds}.xlsx`);
   showToast('Export complete');
 }
@@ -1535,7 +1535,7 @@ function exportYesterday() {
   const todayStr = getTodayStr();
   const today = new Date(todayStr + 'T00:00:00');
   const yesterday = new Date(today); yesterday.setDate(yesterday.getDate()-1);
-  const yStr = yesterday.toISOString().slice(0,10);
+  const yStr = localDateStr(yesterday);
   document.getElementById('exp-from').value = yStr;
   document.getElementById('exp-to').value = yStr;
   exportExcel();
