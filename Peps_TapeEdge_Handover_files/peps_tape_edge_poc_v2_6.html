@@ -49,7 +49,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 #scan-btn:active{background:#333}
 /* MANUAL INPUT */
 .manual-row{display:flex;gap:8px;margin-bottom:16px}
-#manual-input{flex:1;background:var(--surface);border:2px solid var(--border);color:var(--text);padding:15px 14px;border-radius:10px;font-size:15px;outline:none}
+#manual-input{flex:1;background:var(--surface);border:2px solid var(--border);color:var(--text);padding:15px 14px;border-radius:10px;font-size:16px;outline:none}
 #manual-input:focus{border-color:#111}
 #manual-submit{background:#f0f0f0;border:2px solid var(--border);color:#111;padding:15px 18px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap}
 /* RESULT CARD */
@@ -84,7 +84,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 .flag-modal-title{font-size:16px;font-weight:800;color:var(--orange);margin-bottom:8px}
 .flag-modal-si{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px}
 .flag-modal-label{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted);margin-bottom:8px;text-transform:uppercase}
-.flag-textarea{width:100%;background:#f9f9f9;border:2px solid var(--border);color:var(--text);padding:14px;border-radius:10px;font-size:15px;resize:none;margin-bottom:18px;outline:none}
+.flag-textarea{width:100%;background:#f9f9f9;border:2px solid var(--border);color:var(--text);padding:14px;border-radius:10px;font-size:16px;resize:none;margin-bottom:18px;outline:none}
 .flag-textarea:focus{border-color:var(--orange)}
 .flag-modal-btns{display:grid;grid-template-columns:1fr 2fr;gap:10px}
 .flag-cancel-btn{padding:16px;border-radius:10px;background:#f0f0f0;border:none;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer}
@@ -146,7 +146,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 /* DASHBOARD */
 .dash-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;padding:14px;background:var(--surface);border-radius:10px;border:2px solid var(--border)}
 .dash-filter{flex:1;min-width:calc(50% - 4px)}
-.dash-filter select{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;background:#fff;color:var(--text);outline:none}
+.dash-filter select{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:8px;font-size:16px;font-weight:600;background:#fff;color:var(--text);outline:none}
 .dash-filter select:focus{border-color:var(--accent)}
 .filter-label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase}
 /* KPI CARDS */
@@ -220,7 +220,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 .save-targets-btn{margin-top:10px;padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 .export-hint{font-size:12px;color:var(--muted);margin-bottom:10px}
 .export-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px}
-.export-date-input{padding:8px 10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--text);background:#fff}
+.export-date-input{padding:8px 10px;border:2px solid var(--border);border-radius:8px;font-size:16px;font-weight:600;color:var(--text);background:#fff}
 .export-btn{padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 .export-btn-secondary{background:#6B7280}
 .export-footnote{font-size:11px;color:var(--muted)}
@@ -1364,9 +1364,9 @@ function toggleTargetPanel() {
           <tr>
             <td>${m}</td>
             <td style="text-align:right"><input id="tgt-d-${m}" type="number" min="0" value="${_targets[m]?.day||0}"
-              style="width:60px;padding:4px;border:1px solid var(--border);border-radius:4px;font-size:13px;text-align:center"></td>
+              style="width:60px;padding:4px;border:1px solid var(--border);border-radius:4px;font-size:16px;text-align:center"></td>
             <td style="text-align:right"><input id="tgt-n-${m}" type="number" min="0" value="${_targets[m]?.night||0}"
-              style="width:60px;padding:4px;border:1px solid var(--border);border-radius:4px;font-size:13px;text-align:center"></td>
+              style="width:60px;padding:4px;border:1px solid var(--border);border-radius:4px;font-size:16px;text-align:center"></td>
           </tr>`).join('')}
         </tbody>
       </table>`;
