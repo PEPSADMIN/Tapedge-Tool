@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peps — Tape Edge POC v2.6</title>
+<title>Peps — Tape Edge POC v2.7</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -230,7 +230,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 
 <div id="topbar">
   <div class="logo">PEPS</div>
-  <div class="ver" id="topbar-machine">TAPE EDGE · POC v2.6</div>
+  <div class="ver" id="topbar-machine">TAPE EDGE · POC v2.7</div>
 </div>
 
 <div id="tabs">
@@ -491,7 +491,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
     <div class="guide-item"><div class="guide-num">–</div><div class="guide-text">Operator name per shift is not yet implemented — deferred to next version.</div></div>
     <div class="guide-item"><div class="guide-num">–</div><div class="guide-text">Brand/Variety mapping covers 102 known Item Code prefixes. Codes outside this list show as "Unknown" by design — this surfaces gaps for the master table to be corrected, rather than guessing.</div></div>
   </div>
-  <div class="guide-footer">Peps Industries · Tape Edge Automation POC v2.6 · July 2026</div>
+  <div class="guide-footer">Peps Industries · Tape Edge Automation POC v2.7 · July 2026</div>
 </div>
 
 <!-- FLAG MODAL -->
@@ -512,7 +512,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 <div id="upload-overlay" class="upload-overlay">
   <div class="upload-overlay-box">
     <div class="upload-ol-logo">PEPS</div>
-    <div class="upload-ol-title">Tape Edge POC v2.6</div>
+    <div class="upload-ol-title">Tape Edge POC v2.7</div>
     <div class="upload-ol-sub">Upload today's Ramco Excel export to begin</div>
     <button class="upload-ol-btn" onclick="document.getElementById('file-input-ol').click()">⬆ &nbsp;SELECT EXCEL FILE</button>
     <input type="file" id="file-input-ol" class="hidden-input" accept=".xlsx,.xls" onchange="handleFileUpload(event,true)">
@@ -542,6 +542,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 // ════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════
+const APP_VERSION   = 'v2.7'; // bump on every code change; keep in sync with <title> and the static text below
 const THIS_MACHINE = 'TE-01'; // change per device
 const MACHINES     = ['TE-01','TE-02','TE-03','TE-04','TE-05','TE-06','TE-07','TE-08','TE-09','TE-10','TE-11'];
 const PG_LIST      = ['Peps Spring','Vista Bond','Cirrus Foam','Unknown'];
@@ -616,7 +617,7 @@ let pendingEntry = null; // declared here; reassigned in scan logic below
 
   currentMachine = THIS_MACHINE;
   document.getElementById('machine-assigned-label').textContent = currentMachine;
-  document.getElementById('topbar-machine').textContent = currentMachine + ' · POC v2.6';
+  document.getElementById('topbar-machine').textContent = currentMachine + ' · POC ' + APP_VERSION;
   document.getElementById('guide-machine-label').textContent = currentMachine;
 
   // Build machine buttons
@@ -630,7 +631,7 @@ let pendingEntry = null; // declared here; reassigned in scan logic below
       btn.classList.add('selected');
       currentMachine = m;
       document.getElementById('machine-assigned-label').textContent = m;
-      document.getElementById('topbar-machine').textContent = m + ' · POC v2.6';
+      document.getElementById('topbar-machine').textContent = m + ' · POC ' + APP_VERSION;
       document.getElementById('machine-select-panel').style.display = 'none';
       showToast('Machine set to ' + m);
     };

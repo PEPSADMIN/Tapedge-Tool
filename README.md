@@ -6,7 +6,7 @@ production by scanning each mattress's MRP sticker QR code / SI No.
 ## Architecture
 
 Single static HTML file, **no backend**:
-[Peps_TapeEdge_Handover_files/peps_tape_edge_poc_v2_6.html](Peps_TapeEdge_Handover_files/peps_tape_edge_poc_v2_6.html)
+[Peps_TapeEdge_Handover_files/peps_tape_edge_poc_v2_7.html](Peps_TapeEdge_Handover_files/peps_tape_edge_poc_v2_7.html)
 
 - No server, no database, no localStorage. All state (reference data, scan log,
   targets) lives in in-memory JS variables and is lost on page refresh.
