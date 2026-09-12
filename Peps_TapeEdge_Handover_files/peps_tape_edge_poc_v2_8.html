@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peps — Tape Edge POC v2.7</title>
+<title>Peps — Tape Edge POC v2.8</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -230,7 +230,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 
 <div id="topbar">
   <div class="logo">PEPS</div>
-  <div class="ver" id="topbar-machine">TAPE EDGE · POC v2.7</div>
+  <div class="ver" id="topbar-machine">TAPE EDGE · POC v2.8</div>
 </div>
 
 <div id="tabs">
@@ -491,7 +491,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
     <div class="guide-item"><div class="guide-num">–</div><div class="guide-text">Operator name per shift is not yet implemented — deferred to next version.</div></div>
     <div class="guide-item"><div class="guide-num">–</div><div class="guide-text">Brand/Variety mapping covers 102 known Item Code prefixes. Codes outside this list show as "Unknown" by design — this surfaces gaps for the master table to be corrected, rather than guessing.</div></div>
   </div>
-  <div class="guide-footer">Peps Industries · Tape Edge Automation POC v2.7 · July 2026</div>
+  <div class="guide-footer">Peps Industries · Tape Edge Automation POC v2.8 · July 2026</div>
 </div>
 
 <!-- FLAG MODAL -->
@@ -512,7 +512,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 <div id="upload-overlay" class="upload-overlay">
   <div class="upload-overlay-box">
     <div class="upload-ol-logo">PEPS</div>
-    <div class="upload-ol-title">Tape Edge POC v2.7</div>
+    <div class="upload-ol-title">Tape Edge POC v2.8</div>
     <div class="upload-ol-sub">Upload today's Ramco Excel export to begin</div>
     <button class="upload-ol-btn" onclick="document.getElementById('file-input-ol').click()">⬆ &nbsp;SELECT EXCEL FILE</button>
     <input type="file" id="file-input-ol" class="hidden-input" accept=".xlsx,.xls" onchange="handleFileUpload(event,true)">
@@ -542,7 +542,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Helvet
 // ════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════
-const APP_VERSION   = 'v2.7'; // bump on every code change; keep in sync with <title> and the static text below
+const APP_VERSION   = 'v2.8'; // bump on every code change; keep in sync with <title> and the static text below
 const THIS_MACHINE = 'TE-01'; // change per device
 const MACHINES     = ['TE-01','TE-02','TE-03','TE-04','TE-05','TE-06','TE-07','TE-08','TE-09','TE-10','TE-11'];
 const PG_LIST      = ['Peps Spring','Vista Bond','Cirrus Foam','Unknown'];
@@ -1141,12 +1141,13 @@ function updateBoard() {
     <thead><tr><th>Brand</th><th style="text-align:right">${shifts[0].label}</th><th style="text-align:right">${shifts[1].label}</th><th style="text-align:right">Total</th></tr></thead>
     <tbody>${PG_LIST.map(pg => {
       const c0=shifts[0].scans.filter(r=>r.pg===pg).length, c1=shifts[1].scans.filter(r=>r.pg===pg).length;
-      return `<tr><td><span class="pg-badge pg-${pgClass(pg)}">${pg}</span></td><td class="num">${c0}</td><td class="num" style="color:var(--muted)">${c1}</td><td class="num">${c0+c1}</td></tr>`;
+      const rowTotal = cur === 'night' ? c0+c1 : c0; // Night shift = current+previous; Day shift = current only (same rule as TODAY TOTAL above)
+      return `<tr><td><span class="pg-badge pg-${pgClass(pg)}">${pg}</span></td><td class="num">${c0}</td><td class="num" style="color:var(--muted)">${c1}</td><td class="num">${rowTotal}</td></tr>`;
     }).join('')}
     <tr><td style="color:var(--muted);font-size:10px;letter-spacing:1px">TOTAL</td>
     <td class="num" style="color:var(--accent)">${curScans.length}</td>
     <td class="num" style="color:var(--muted)">${prevScans.length}</td>
-    <td class="num">${curScans.length + prevScans.length}</td></tr></tbody></table>`;
+    <td class="num">${todayTotal}</td></tr></tbody></table>`;
 }
 
 // ════════════════════════════════════════
